@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ntou.cs.YTComment</groupId>
 	<artifactId>andy</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>YTComment</name>
 	<description>Demo project for Spring Boot</description>
