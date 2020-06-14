@@ -22,7 +22,6 @@ public class YTController {
 	@GetMapping("/video/{id}")
 	public ResponseEntity<ArrayList<Comment>> getVideo(@PathVariable("id") String id,Model model) throws IOException{
 		read = new YTReader(id);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/video").buildAndExpand().toUri();
 		return ResponseEntity.ok().body(read.comment);
 	}
 }

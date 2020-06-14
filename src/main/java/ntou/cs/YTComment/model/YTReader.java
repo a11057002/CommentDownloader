@@ -82,7 +82,7 @@ public class YTReader {
 	}
 	
 	private ArrayList<Comment> convertToCommentObjects(String jsonData) {
-		ArrayList<Comment> comment = new ArrayList();
+		ArrayList<Comment> comment = new ArrayList<Comment>();
 		Type listType = new TypeToken<List<Comment>>(){}.getType();
 		comment = new Gson().fromJson(jsonData, listType);
 		return comment;
@@ -98,8 +98,8 @@ public class YTReader {
 	}
 	
 	private String parseVideo(String id){
-		String myurl = "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=AIzaSyBCLxUjVz4OEWDcgqrFGR2qBXqoso6pp-Y"
-				+ "&t&maxResults=100&videoId=" + id + "&pageToken="+this.nextPageToken;
+		String myurl = "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=AIzaSyAJ6xW00QXj2RWwlk7sOFRZVGDKapp5nkE"
+				+ "&maxResults=100&videoId=" + id + "&pageToken="+this.nextPageToken;
 		
 		try {
 			URL url = new URL(myurl);
@@ -108,6 +108,7 @@ public class YTReader {
 			int responseCode = con.getResponseCode();
 			System.out.println(myurl);
 			System.out.println("Response Code : " + responseCode);
+			System.out.println(con.getErrorStream());
 			 BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
              StringBuilder sb = new StringBuilder();
              while ((line = br.readLine()) != null) {
