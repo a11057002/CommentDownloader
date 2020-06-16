@@ -84,7 +84,7 @@ public class YTSearcher {
 	}
 
 	public static String searchVideo(String keyword) {
-		String myurl = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAJ6xW00QXj2RWwlk7sOFRZVGDKapp5nkE&maxResults=10&type=video&q=" + keyword;
+		String myurl = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyA28AtN_t_C_8PmMZNN_To7Ffpss8Bilbo&maxResults=10&type=video&q=" + keyword;
 		String temp = "";
 		try {
 			URL url = new URL(myurl);

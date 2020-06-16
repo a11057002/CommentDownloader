@@ -100,7 +100,7 @@ public class YTReader {
 	}
 	
 	private String parseVideo(String id){
-		String myurl = "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=AIzaSyAJ6xW00QXj2RWwlk7sOFRZVGDKapp5nkE"
+		String myurl = "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=AIzaSyA28AtN_t_C_8PmMZNN_To7Ffpss8Bilbo"
 				+ "&maxResults=100&videoId=" + id + "&pageToken="+this.nextPageToken + "&searchTerms=" + this.keyword;
 		
 		try {
