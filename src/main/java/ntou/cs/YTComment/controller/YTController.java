@@ -10,18 +10,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ntou.cs.YTComment.entity.Comment;
+import ntou.cs.YTComment.entity.Video;
 import ntou.cs.YTComment.model.YTReader;
+import ntou.cs.YTComment.model.YTSearcher;
 
 @Controller
 @CrossOrigin
 public class YTController {
 	YTReader read;
+	YTSearcher search;
 	@GetMapping("/video/{id}")
-	public ResponseEntity<ArrayList<Comment>> getVideo(@PathVariable("id") String id,Model model) throws IOException{
-		read = new YTReader(id);
+	public ResponseEntity<ArrayList<Comment>> getVideo(@PathVariable("id") String id,@RequestParam(required = false) String keyword) throws IOException{
+		if(keyword==null)keyword = "";
+		read = new YTReader(id,keyword);
 		return ResponseEntity.ok().body(read.comment);
+	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<ArrayList<Video>> searchVideo(@RequestParam String keyword) throws IOException{
+		search = new YTSearcher(keyword);
+		return ResponseEntity.ok().body(search.videos);
 	}
 }

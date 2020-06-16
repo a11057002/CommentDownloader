@@ -29,9 +29,11 @@ public class YTReader {
 	public String nextPageToken = "";
 	public String id;
 	private String line = "";
+	private String keyword;
 	
-	public YTReader(String id) throws IOException {
+	public YTReader(String id,String keyword) throws IOException {
 		this.id=id;
+		this.keyword = keyword;
 		initialize(id);
 	}
 	
@@ -99,7 +101,7 @@ public class YTReader {
 	
 	private String parseVideo(String id){
 		String myurl = "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=AIzaSyAJ6xW00QXj2RWwlk7sOFRZVGDKapp5nkE"
-				+ "&maxResults=100&videoId=" + id + "&pageToken="+this.nextPageToken;
+				+ "&maxResults=100&videoId=" + id + "&pageToken="+this.nextPageToken + "&searchTerms=" + this.keyword;
 		
 		try {
 			URL url = new URL(myurl);
