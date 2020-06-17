@@ -100,7 +100,9 @@ public class YTReader {
 	}
 	
 	private String parseVideo(String id){
-		String myurl = "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=AIzaSyA28AtN_t_C_8PmMZNN_To7Ffpss8Bilbo"
+//		List<String> apiKeys = Arrays.asList("AIzaSyAJ6xW00QXj2RWwlk7sOFRZVGDKapp5nkE","AIzaSyA28AtN_t_C_8PmMZNN_To7Ffpss8Bilbo","AIzaSyA6glVOA702Cx23k3O_8jZ_ETiIYecCYjM","AIzaSyBCLxUjVz4OEWDcgqrFGR2qBXqoso6pp-Y")
+		
+		String myurl = "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=AIzaSyA6glVOA702Cx23k3O_8jZ_ETiIYecCYjM"
 				+ "&maxResults=100&videoId=" + id + "&pageToken="+this.nextPageToken + "&searchTerms=" + this.keyword;
 		
 		try {
@@ -110,7 +112,7 @@ public class YTReader {
 			int responseCode = con.getResponseCode();
 			System.out.println(myurl);
 			System.out.println("Response Code : " + responseCode);
-			System.out.println(con.getErrorStream());
+//			System.out.println(con.getErrorStream());
 			 BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
              StringBuilder sb = new StringBuilder();
              while ((line = br.readLine()) != null) {
