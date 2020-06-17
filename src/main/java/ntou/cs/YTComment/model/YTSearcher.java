@@ -15,6 +15,8 @@ import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -22,16 +24,18 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import ntou.cs.YTComment.entity.KeysConfig;
 import ntou.cs.YTComment.entity.Video;
 
 public class YTSearcher {
+	
 	public ArrayList<Video> videos = new ArrayList<Video>();
 	public String out;
-	public YTSearcher(String query) throws IOException {
+	public YTSearcher(String query) throws Exception {
 		initialize(query);
 	}
 
-	private void initialize(String query) throws IOException {
+	private void initialize(String query) throws Exception {
 		String data = searchVideo(query);
 		String element = produceDataJson(data);
 		videos.addAll(convertToCommentObjects(element));
@@ -83,30 +87,34 @@ public class YTSearcher {
 		return fieldNameTranslationMap;
 	}
 
-	public static String searchVideo(String keyword) {
-//		List<String> apiKeys = Arrays.asList("AIzaSyAJ6xW00QXj2RWwlk7sOFRZVGDKapp5nkE","AIzaSyA28AtN_t_C_8PmMZNN_To7Ffpss8Bilbo","AIzaSyA6glVOA702Cx23k3O_8jZ_ETiIYecCYjM","AIzaSyBCLxUjVz4OEWDcgqrFGR2qBXqoso6pp-Y")
-		
-		String myurl = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyA6glVOA702Cx23k3O_8jZ_ETiIYecCYjM&maxResults=10&type=video&q=" + keyword;
-		String temp = "";
-		try {
-			URL url = new URL(myurl);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			int responseCode = con.getResponseCode();
-			System.out.println(myurl);
-			System.out.println("Response Code : " + responseCode);
-//			System.out.println(con.getErrorStream());
-			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            while ((temp = br.readLine()) != null) {
-                sb.append(temp+"\n");
-            }
-            br.close();
-            temp = sb.toString();
-		} 
-		catch(Exception e){		
+	public static String searchVideo(String keyword) throws Exception {
+//		System.out.println(KeysConfig.getKeys());
+		List<String> keys = KeysConfig.getKeys();
+		int count = 0;
+		while(true) {
+			try {
+				String temp = "";
+				String myurl = "https://www.googleapis.com/youtube/v3/search?part=snippet&key="+keys.get(count)+"&maxResults=10&type=video&q=" + keyword;
+				URL url = new URL(myurl);
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				con.setRequestMethod("GET");
+				int responseCode = con.getResponseCode();
+				System.out.println(myurl);
+				System.out.println("Response Code : " + responseCode);
+	//			System.out.println(con.getErrorStream());
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	            StringBuilder sb = new StringBuilder();
+	            while ((temp = br.readLine()) != null) {
+	                sb.append(temp+"\n");
+	            }
+	            br.close();
+	            temp = sb.toString();
+	            return temp;
+			} 
+			catch(Exception e){		
+				if(++count == keys.size()) throw e;
+			}
 		}
-		return temp;
 	}
 	
 }

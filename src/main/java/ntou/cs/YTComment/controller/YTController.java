@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ntou.cs.YTComment.entity.Comment;
+import ntou.cs.YTComment.entity.KeysConfig;
 import ntou.cs.YTComment.entity.Video;
 import ntou.cs.YTComment.model.YTReader;
 import ntou.cs.YTComment.model.YTSearcher;
@@ -28,7 +29,7 @@ public class YTController {
 	YTSearcher search;
 	
 	@GetMapping("/video/{id}")
-	public ResponseEntity<ArrayList<Comment>> getVideo(@PathVariable("id") String id,@RequestParam(required = false) String keyword) throws IOException{
+	public ResponseEntity<ArrayList<Comment>> getVideo(@PathVariable("id") String id,@RequestParam(required = false) String keyword) throws Exception{
 		if(keyword==null)keyword = "";
 		System.out.println(keyword);
 		read = new YTReader(id,URLEncoder.encode(keyword,"UTF-8"));
@@ -43,7 +44,7 @@ public class YTController {
 //	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<ArrayList<Video>> searchVideo(@RequestParam String keyword) throws IOException{
+	public ResponseEntity<ArrayList<Video>> searchVideo(@RequestParam String keyword) throws Exception{
 		search = new YTSearcher(keyword);
 		return ResponseEntity.ok().body(search.videos);
 	}

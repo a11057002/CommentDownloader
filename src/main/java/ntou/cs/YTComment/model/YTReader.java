@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -22,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import ntou.cs.YTComment.entity.Comment;
+import ntou.cs.YTComment.entity.KeysConfig;
 
 public class YTReader {
 
@@ -31,13 +34,13 @@ public class YTReader {
 	private String line = "";
 	private String keyword;
 	
-	public YTReader(String id,String keyword) throws IOException {
+	public YTReader(String id,String keyword) throws Exception {
 		this.id=id;
 		this.keyword = keyword;
 		initialize(id);
 	}
 	
-	private void initialize(String id) throws IOException{
+	private void initialize(String id) throws Exception{
 		while(this.nextPageToken!=null) {
 			String data = parseVideo(id);
 			String dataJson = produceDataJson(data);
@@ -99,31 +102,35 @@ public class YTReader {
 		return fieldNameTranslationMap;
 	}
 	
-	private String parseVideo(String id){
-//		List<String> apiKeys = Arrays.asList("AIzaSyAJ6xW00QXj2RWwlk7sOFRZVGDKapp5nkE","AIzaSyA28AtN_t_C_8PmMZNN_To7Ffpss8Bilbo","AIzaSyA6glVOA702Cx23k3O_8jZ_ETiIYecCYjM","AIzaSyBCLxUjVz4OEWDcgqrFGR2qBXqoso6pp-Y")
+	private String parseVideo(String id) throws Exception{
 		
-		String myurl = "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=AIzaSyA6glVOA702Cx23k3O_8jZ_ETiIYecCYjM"
+		List<String> keys = KeysConfig.getKeys();
+		int count = 0;
+		while(true) {
+			try {
+				String myurl = "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key="+ keys.get(count)
 				+ "&maxResults=100&videoId=" + id + "&pageToken="+this.nextPageToken + "&searchTerms=" + this.keyword;
-		
-		try {
-			URL url = new URL(myurl);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			int responseCode = con.getResponseCode();
-			System.out.println(myurl);
-			System.out.println("Response Code : " + responseCode);
-	//			System.out.println(con.getErrorStream());
-			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	        StringBuilder sb = new StringBuilder();
-	        while ((line = br.readLine()) != null) {
-	            sb.append(line+"\n");
-	        }
-	        br.close();
-	        line = sb.toString();
-		} 
-		catch(Exception e){		
+				URL url = new URL(myurl);
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				con.setRequestMethod("GET");
+				int responseCode = con.getResponseCode();
+				System.out.println(myurl);
+				System.out.println("Response Code : " + responseCode);
+		//			System.out.println(con.getErrorStream());
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		        StringBuilder sb = new StringBuilder();
+		        while ((line = br.readLine()) != null) {
+		            sb.append(line+"\n");
+		        }
+		        br.close();
+		        line = sb.toString();
+		        return line;
+			} 
+			catch(Exception e){		
+				if(++count==keys.size()) throw e;
+			}
 		}
-		return line;
+		
 	}
 	
 }
