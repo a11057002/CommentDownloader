@@ -118,19 +118,17 @@ public class YTReader {
 				System.out.println("Response Code : " + responseCode);
 		//			System.out.println(con.getErrorStream());
 				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		        StringBuilder sb = new StringBuilder();
-		        while ((line = br.readLine()) != null) {
-		            sb.append(line+"\n");
-		        }
-		        br.close();
-		        line = sb.toString();
-		        return line;
+				StringBuilder sb = new StringBuilder();
+				while ((line = br.readLine()) != null) {
+					sb.append(line+"\n");
+				}
+				br.close();
+				line = sb.toString();
+				return line;
 			} 
 			catch(Exception e){		
 				if(++count==keys.size()) throw e;
 			}
 		}
-		
 	}
-	
 }

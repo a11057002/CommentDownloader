@@ -17,7 +17,7 @@ public class KeysConfig {
 	private static String key4;
 	private static String key5;
 	
-//	@Autowired
+//	@Autowired //for local testing
 //	public KeysConfig(@Value("${my.key1}") String key1,@Value("${my.key2}") String key2,@Value("${my.key3}") String key3,@Value("${my.key4}") String key4,@Value("${my.key5}") String key5) {
 //		this.key1 = key1;
 //		this.key2 = key2;
@@ -25,6 +25,7 @@ public class KeysConfig {
 //		this.key4 = key4;
 //		this.key5 = key5;
 //	}
+	
 	@Autowired
 	public KeysConfig() {
 		this.key1 = System.getenv().get("my.key1");
