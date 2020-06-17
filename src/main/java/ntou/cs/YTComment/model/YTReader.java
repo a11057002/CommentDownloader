@@ -112,14 +112,14 @@ public class YTReader {
 			int responseCode = con.getResponseCode();
 			System.out.println(myurl);
 			System.out.println("Response Code : " + responseCode);
-//			System.out.println(con.getErrorStream());
-			 BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-             StringBuilder sb = new StringBuilder();
-             while ((line = br.readLine()) != null) {
-                 sb.append(line+"\n");
-             }
-             br.close();
-             line = sb.toString();
+	//			System.out.println(con.getErrorStream());
+			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	        StringBuilder sb = new StringBuilder();
+	        while ((line = br.readLine()) != null) {
+	            sb.append(line+"\n");
+	        }
+	        br.close();
+	        line = sb.toString();
 		} 
 		catch(Exception e){		
 		}

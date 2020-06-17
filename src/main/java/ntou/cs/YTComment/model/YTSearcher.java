@@ -96,13 +96,13 @@ public class YTSearcher {
 			System.out.println(myurl);
 			System.out.println("Response Code : " + responseCode);
 //			System.out.println(con.getErrorStream());
-			 BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-             StringBuilder sb = new StringBuilder();
-             while ((temp = br.readLine()) != null) {
-                 sb.append(temp+"\n");
-             }
-             br.close();
-             temp = sb.toString();
+			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            while ((temp = br.readLine()) != null) {
+                sb.append(temp+"\n");
+            }
+            br.close();
+            temp = sb.toString();
 		} 
 		catch(Exception e){		
 		}
