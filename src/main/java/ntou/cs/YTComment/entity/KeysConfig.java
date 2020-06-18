@@ -17,6 +17,8 @@ public class KeysConfig {
 	private static String key4;
 	private static String key5;
 	private static String key6;
+	private static String key7;
+	private static String key8;
 //	@Autowired //for local testing
 //	public KeysConfig(@Value("${my.key1}") String key1,@Value("${my.key2}") String key2,@Value("${my.key3}") String key3,@Value("${my.key4}") String key4,@Value("${my.key5}") String key5) {
 //		this.key1 = key1;
@@ -35,6 +37,8 @@ public class KeysConfig {
 		this.key4 = System.getenv().get("my.key4");
 		this.key5 = System.getenv().get("my.key5");
 		this.key6 = System.getenv().get("my.key6");
+		this.key7 = System.getenv().get("my.key7");
+		this.key8 = System.getenv().get("my.key8");
 	}
 	
 	public static List<String> getKeys(){
@@ -45,6 +49,8 @@ public class KeysConfig {
 		keys.add(key4);
 		keys.add(key5);
 		keys.add(key6);
+		keys.add(key7);
+		keys.add(key8);
 		return keys;
 	}
 	
