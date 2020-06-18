@@ -45,7 +45,7 @@ public class YTController {
 	
 	@GetMapping("/search")
 	public ResponseEntity<ArrayList<Video>> searchVideo(@RequestParam String keyword) throws Exception{
-		search = new YTSearcher(keyword);
+		search = new YTSearcher(URLEncoder.encode(keyword,"UTF-8"));
 		return ResponseEntity.ok().body(search.videos);
 	}
 }

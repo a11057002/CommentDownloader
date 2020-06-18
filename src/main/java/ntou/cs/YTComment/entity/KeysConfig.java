@@ -24,6 +24,7 @@ public class KeysConfig {
 //		this.key3 = key3;
 //		this.key4 = key4;
 //		this.key5 = key5;
+//		this.key6 = key6;
 //	}
 	
 	@Autowired
